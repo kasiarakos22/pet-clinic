@@ -1,14 +1,7 @@
 package com.kasiarakos.petclinic.services;
 
-import java.util.Set;
-
 import com.kasiarakos.petclinic.model.Vet;
 
-public interface VetServicce {
+public interface VetServicce extends CrudService<Vet, Long> {
 
-    Vet findById(Long id);
-
-    Vet save(Vet vet);
-
-    Set<Vet> findAll();
 }
