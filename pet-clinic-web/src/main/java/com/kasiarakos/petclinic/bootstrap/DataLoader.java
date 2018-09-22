@@ -1,9 +1,12 @@
 package com.kasiarakos.petclinic.bootstrap;
 
+import java.time.LocalDate;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.kasiarakos.petclinic.model.Owner;
+import com.kasiarakos.petclinic.model.Pet;
 import com.kasiarakos.petclinic.model.PetType;
 import com.kasiarakos.petclinic.model.Vet;
 import com.kasiarakos.petclinic.services.OwnerService;
@@ -36,13 +39,33 @@ public class DataLoader implements CommandLineRunner {
         Owner kasiarakos = new Owner();
         kasiarakos.setFirstName("Dimitris");
         kasiarakos.setLastName("kasiaras");
+        kasiarakos.setAddress("Penrose street 46");
+        kasiarakos.setCity("Athens");
+        kasiarakos.setTelephone("1234567890");
 
         Owner sofia = new Owner();
         sofia.setLastName("karka");
         sofia.setFirstName("Sofia");
+        kasiarakos.setAddress("Penrose street 46");
+        kasiarakos.setCity("Athens");
+        kasiarakos.setTelephone("1234567890");
 
         ownerService.save(kasiarakos);
         ownerService.save(sofia);
+
+        Pet kasiarakosPet = new Pet();
+        kasiarakosPet.setPetType(dog);
+        kasiarakosPet.setBirthDate(LocalDate.of(2018,9,22));
+        kasiarakosPet.setName("jack");
+        kasiarakosPet.setOwner(kasiarakos);
+        kasiarakos.getPets().add(kasiarakosPet);
+
+        Pet sofiaPet = new Pet();
+        sofiaPet.setPetType(cat);
+        sofiaPet.setBirthDate(LocalDate.of(2018,9,22));
+        sofiaPet.setName("fluffy");
+        sofiaPet.setOwner(sofia);
+        kasiarakos.getPets().add(sofiaPet);
 
         Vet nefeli = new Vet();
         nefeli.setLastName("newcomer");
