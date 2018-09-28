@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import  javax.persistence.ManyToOne;
 
 @Entity
 public class Visit extends BaseEntity{
