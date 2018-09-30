@@ -1,6 +1,7 @@
 package com.kasiarakos.petclinic.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -28,6 +29,28 @@ public class Owner extends Person {
         return city;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        Owner owner = (Owner) o;
+        return Objects.equals(address, owner.address) &&
+            Objects.equals(city, owner.city) &&
+            Objects.equals(telephone, owner.telephone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), address, city, telephone);
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -47,4 +70,6 @@ public class Owner extends Person {
     public void setPets(Set<Pet> pets) {
         this.pets = pets;
     }
+
+
 }
