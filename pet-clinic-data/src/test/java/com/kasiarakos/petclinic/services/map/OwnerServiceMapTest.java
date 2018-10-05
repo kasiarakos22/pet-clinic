@@ -20,9 +20,9 @@ class OwnerServiceMapTest {
     private OwnerServiceMap ownerServiceMap;
 
     @Mock
-    PetTypeService petTypeService;
+    private PetTypeService petTypeService;
     @Mock
-    PetService petService;
+    private PetService petService;
 
 
     @BeforeEach
