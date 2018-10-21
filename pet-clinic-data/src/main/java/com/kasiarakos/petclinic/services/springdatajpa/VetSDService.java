@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.kasiarakos.petclinic.model.Vet;
 import com.kasiarakos.petclinic.repositories.VetRepository;
-import com.kasiarakos.petclinic.services.VetServicce;
+import com.kasiarakos.petclinic.services.VetService;
 
 @Service
 @Profile("springdatajpa")
-public class VetSDService implements VetServicce {
+public class VetSDService implements VetService {
 
     private final VetRepository vetRepository;
 

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.kasiarakos.petclinic.model.Vet;
 import com.kasiarakos.petclinic.services.SpecialtyService;
-import com.kasiarakos.petclinic.services.VetServicce;
+import com.kasiarakos.petclinic.services.VetService;
 
 @Service
 @Profile({"default", "map"})
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetServicce {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
 
     private final SpecialtyService specialtyService;
 

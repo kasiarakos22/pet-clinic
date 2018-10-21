@@ -10,9 +10,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Builder;
+
 @Entity
 @Table(name = "vets")
 public class Vet extends Person{
+
+    public Vet(){
+
+    }
+
+    @Builder
+    public Vet(Long id, String firstName, String lastName, Set<Specialty> specialties) {
+        super(id, firstName, lastName);
+        this.specialties = specialties;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"), inverseJoinColumns = @JoinColumn(name = "specialty_id"))

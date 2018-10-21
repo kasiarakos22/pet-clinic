@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import lombok.Builder;
+
 @Entity
 public class Owner extends Person {
 
@@ -16,6 +18,18 @@ public class Owner extends Person {
     private String telephone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
+
+    @Builder
+    public Owner(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Pet> pets) {
+        super(id, firstName, lastName);
+        this.address = address;
+        this.city = city;
+        this.telephone = telephone;
+        this.pets = pets;
+    }
+
+    public Owner() {
+    }
 
     public String getAddress() {
         return address;
@@ -28,6 +42,8 @@ public class Owner extends Person {
     public String getCity() {
         return city;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

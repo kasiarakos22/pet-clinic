@@ -14,20 +14,20 @@ import com.kasiarakos.petclinic.model.Visit;
 import com.kasiarakos.petclinic.services.OwnerService;
 import com.kasiarakos.petclinic.services.PetTypeService;
 import com.kasiarakos.petclinic.services.SpecialtyService;
-import com.kasiarakos.petclinic.services.VetServicce;
+import com.kasiarakos.petclinic.services.VetService;
 import com.kasiarakos.petclinic.services.VisitService;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
-    private final VetServicce vetService;
+    private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
     private final VisitService visitService;
 
     public DataLoader(
-        OwnerService ownerService, VetServicce vetService, PetTypeService petTypeService, SpecialtyService specialtyService, VisitService visitService) {
+        OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;

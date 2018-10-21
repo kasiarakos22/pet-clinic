@@ -4,21 +4,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kasiarakos.petclinic.services.VetServicce;
+import com.kasiarakos.petclinic.services.VetService;
 
 @Controller
 public class VetController {
 
-    private final VetServicce vetServicce;
+    private final VetService vetService;
 
-    public VetController(VetServicce vetServicce) {
-        this.vetServicce = vetServicce;
+    public VetController(VetService vetService) {
+        this.vetService = vetService;
     }
 
     @RequestMapping({"/vets", "/vets.html", "vets/index", "vets/index.html"})
     public String listVets(Model model){
 
-        model.addAttribute("vets", vetServicce.findAll());
+        model.addAttribute("vets", vetService.findAll());
         return "vets/index";
     }
 }
