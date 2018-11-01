@@ -27,6 +27,11 @@ public class OwnerSDService implements OwnerService {
     }
 
     @Override
+    public Set<Owner> findByLastNameLike(String lastName) {
+        return ownerRepository.findByLastNameLike(lastName);
+    }
+
+    @Override
     public Set<Owner> findAll() {
         return StreamSupport.stream(ownerRepository.findAll().spliterator(),true ).collect(Collectors.toSet());
     }

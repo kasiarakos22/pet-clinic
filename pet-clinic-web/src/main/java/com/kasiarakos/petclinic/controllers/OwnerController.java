@@ -1,14 +1,19 @@
 package com.kasiarakos.petclinic.controllers;
 
+import java.util.Set;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kasiarakos.petclinic.model.Owner;
 import com.kasiarakos.petclinic.services.OwnerService;
 
-@RequestMapping("owners")
+@RequestMapping("/owners")
 @Controller
 public class OwnerController {
 
@@ -18,16 +23,12 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @RequestMapping({"", "index", "index.html"})
-    public String listOwners(Model model){
-
-        model.addAttribute("owners", ownerService.findAll());
-        return "owners/index";
-    }
 
     @RequestMapping({"/find"})
-    public String findOwners(){
-        return "notImplemented";
+    public String findOwners(Model model){
+        Owner owner = new Owner();
+        model.addAttribute("owner", owner);
+        return "owners/findOwners";
     }
 
     @RequestMapping("/{ownerId}")
@@ -35,6 +36,27 @@ public class OwnerController {
         ModelAndView mav = new ModelAndView("owners/ownerDetails");
         mav.addObject(ownerService.findById(ownerId));
         return mav;
+    }
+
+    @GetMapping
+    public String processingForm(Owner owner,  BindingResult result, Model model){
+
+        if(owner.getLastName() == null){
+            owner.setLastName("");
+        }
+        Set<Owner> owners =  ownerService.findByLastNameLike("%"+owner.getLastName()+"%");
+        if(owners.isEmpty()){
+            result.rejectValue("lastName", "notFound", "not found");
+            return "owners/findOwners";
+        }
+        else if(owners.size()== 1){
+            Owner resultOwner = owners.iterator().next();
+            return "redirect:/owners/"+resultOwner.getId();
+        } else {
+            model.addAttribute("selections", owners);
+            return "owners/ownersList";
+        }
+
     }
 
 }
