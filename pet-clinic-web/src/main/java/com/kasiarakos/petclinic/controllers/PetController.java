@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kasiarakos.petclinic.model.Owner;
@@ -56,10 +57,12 @@ public class PetController {
     public String initCreate(Owner owner, Model model){
         Pet pet = Pet.builder().build();
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         model.addAttribute(pet);
         return "pets/createOrUpdatePetForm";
     }
 
+    @PostMapping("/new")
     public String processCreate(Owner owner, @Valid Pet pet, BindingResult result, ModelMap model){
 
         if (StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null){
@@ -73,5 +76,26 @@ public class PetController {
 
         petService.save(pet);
         return "redirect:/owners/" + owner.getId();
+    }
+
+    @GetMapping("/{petId}/edit")
+    public String initUpdate(@PathVariable Long petId, Model model){
+        Pet pet = petService.findById(petId);
+        model.addAttribute(pet);
+        return "pets/createOrUpdatePetForm";
+    }
+
+    @PostMapping("/{pageId}/edit")
+    public String processUpdate(Owner owner, @Valid Pet pet, BindingResult result, Model model){
+        if(result.hasErrors()){
+            pet.setOwner(owner);
+            model.addAttribute(pet);
+            return "pets/createOrUpdatePetForm";
+        }
+
+        owner.getPets().add(pet);
+        petService.save(pet);
+        return "redirect:/owners/" + owner.getId();
+
     }
 }

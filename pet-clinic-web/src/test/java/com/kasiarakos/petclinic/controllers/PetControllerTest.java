@@ -13,14 +13,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.kasiarakos.petclinic.model.Owner;
+import com.kasiarakos.petclinic.model.Pet;
 import com.kasiarakos.petclinic.model.PetType;
 import com.kasiarakos.petclinic.services.OwnerService;
 import com.kasiarakos.petclinic.services.PetService;
 import com.kasiarakos.petclinic.services.PetTypeService;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -70,7 +74,7 @@ class PetControllerTest {
                .andExpect(view().name("pets/createOrUpdatePetForm"));
     }
 
-    /*@Test
+    @Test
     void processCreationForm() throws Exception {
         when(ownerService.findById(anyLong())).thenReturn(owner);
         when(petTypeService.findAll()).thenReturn(petTypes);
@@ -80,9 +84,9 @@ class PetControllerTest {
                .andExpect(view().name("redirect:/owners/1"));
 
         verify(petService).save(any());
-    }*/
+    }
 
-/*
+
     @Test
     void initUpdateForm() throws Exception {
         when(ownerService.findById(anyLong())).thenReturn(owner);
@@ -107,6 +111,6 @@ class PetControllerTest {
 
         verify(petService).save(any());
     }
-*/
+
 
 }
